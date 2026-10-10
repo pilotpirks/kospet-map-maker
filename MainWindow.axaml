@@ -1,0 +1,104 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:KospetMapMaker"
+        x:Class="KospetMapMaker.MainWindow"
+        Width="1180" Height="780" MinWidth="900" MinHeight="600"
+        Title="Kospet Map Maker">
+
+  <Window.Styles>
+    <Style Selector="TextBlock.h">
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="FontSize" Value="15" />
+      <Setter Property="Margin" Value="0,14,0,6" />
+    </Style>
+    <Style Selector="CheckBox.sub">
+      <Setter Property="Margin" Value="26,0,0,0" />
+    </Style>
+  </Window.Styles>
+
+  <Grid ColumnDefinitions="420,*" Margin="0">
+
+    <!-- ===================== left: settings ===================== -->
+    <Border Grid.Column="0" BorderThickness="0,0,1,0" BorderBrush="#22000000">
+      <DockPanel>
+        <StackPanel DockPanel.Dock="Bottom" Margin="16,8,16,16" Spacing="8">
+          <ProgressBar x:Name="Prog" Minimum="0" Maximum="1" Height="6" />
+          <TextBlock x:Name="StatusText" TextWrapping="Wrap" Opacity="0.8" />
+          <StackPanel Orientation="Horizontal" Spacing="8">
+            <Button x:Name="BuildBtn" Classes="accent" Padding="18,8" />
+            <Button x:Name="CancelBtn" IsEnabled="False" />
+            <Button x:Name="OpenBtn" IsEnabled="False" />
+          </StackPanel>
+        </StackPanel>
+
+        <ScrollViewer>
+          <StackPanel Margin="16,8,16,8">
+            <Grid ColumnDefinitions="*,Auto">
+              <TextBlock x:Name="TitleText" FontSize="18" FontWeight="Bold" VerticalAlignment="Center" TextWrapping="Wrap" />
+              <ComboBox x:Name="LangBox" Grid.Column="1" Width="110" SelectedIndex="0">
+                <ComboBoxItem>Русский</ComboBoxItem>
+                <ComboBoxItem>English</ComboBoxItem>
+              </ComboBox>
+            </Grid>
+
+            <!-- source -->
+            <TextBlock x:Name="HSource" Classes="h" />
+            <RadioButton x:Name="SrcRegion" GroupName="src" IsChecked="True" />
+            <Grid ColumnDefinitions="*,Auto" Margin="26,4,0,4">
+              <TextBox x:Name="SearchBox" />
+              <Button x:Name="ReloadBtn" Grid.Column="1" Margin="6,0,0,0" />
+            </Grid>
+            <ListBox x:Name="RegionList" Height="200" Margin="26,0,0,4" />
+            <CheckBox x:Name="ChkRefresh" Margin="26,0,0,0" />
+            <RadioButton x:Name="SrcFile" GroupName="src" Margin="0,6,0,0" />
+            <Grid ColumnDefinitions="*,Auto" Margin="26,4,0,0">
+              <TextBox x:Name="PbfPath" />
+              <Button x:Name="BrowsePbfBtn" Grid.Column="1" Margin="6,0,0,0" />
+            </Grid>
+
+            <!-- layers -->
+            <TextBlock x:Name="HLayers" Classes="h" />
+            <CheckBox x:Name="ChkRoads" IsChecked="True" />
+            <CheckBox x:Name="ChkPaths" Classes="sub" IsChecked="True" />
+            <CheckBox x:Name="ChkService" Classes="sub" IsChecked="True" />
+            <CheckBox x:Name="ChkTracks" Classes="sub" IsChecked="True" />
+            <CheckBox x:Name="ChkWater" IsChecked="True" />
+            <CheckBox x:Name="ChkRivers" Classes="sub" IsChecked="True" />
+            <CheckBox x:Name="ChkLanduse" IsChecked="True" />
+            <CheckBox x:Name="ChkExtra" Classes="sub" IsChecked="True" />
+            <StackPanel Orientation="Horizontal" Spacing="10">
+              <CheckBox x:Name="ChkContours" IsChecked="True" />
+              <TextBlock x:Name="StepLabel" VerticalAlignment="Center" />
+              <ComboBox x:Name="StepBox" SelectedIndex="0" Width="80">
+                <ComboBoxItem>100</ComboBoxItem>
+                <ComboBoxItem>50</ComboBoxItem>
+              </ComboBox>
+            </StackPanel>
+
+            <!-- output -->
+            <TextBlock x:Name="HOutput" Classes="h" />
+            <TextBlock x:Name="OutLabel" Margin="0,0,0,2" />
+            <Grid ColumnDefinitions="*,Auto">
+              <TextBox x:Name="OutDir" />
+              <Button x:Name="BrowseOutBtn" Grid.Column="1" Margin="6,0,0,0" />
+            </Grid>
+            <TextBlock x:Name="NameLabel" Margin="0,8,0,2" />
+            <TextBox x:Name="NameBox" />
+            <TextBlock x:Name="HintText" TextWrapping="Wrap" Opacity="0.7" Margin="0,8,0,0" FontSize="12" />
+          </StackPanel>
+        </ScrollViewer>
+      </DockPanel>
+    </Border>
+
+    <!-- ===================== right: preview + log ===================== -->
+    <Grid Grid.Column="1" RowDefinitions="Auto,*,Auto,180" Margin="12">
+      <TextBlock x:Name="PreviewLabel" Opacity="0.7" Margin="2,0,0,4" />
+      <Border Grid.Row="1" CornerRadius="6" ClipToBounds="True" BorderThickness="1" BorderBrush="#22000000">
+        <local:MapPreview x:Name="Preview" />
+      </Border>
+      <TextBlock x:Name="LogLabel" Grid.Row="2" Opacity="0.7" Margin="2,8,0,4" />
+      <TextBox x:Name="LogBox" Grid.Row="3" IsReadOnly="True" AcceptsReturn="True" TextWrapping="NoWrap"
+               FontFamily="Consolas,Menlo,DejaVu Sans Mono,monospace" FontSize="12" />
+    </Grid>
+  </Grid>
+</Window>
