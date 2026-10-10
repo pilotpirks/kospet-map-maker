@@ -67,6 +67,16 @@ dotnet publish -c Release -r win-x64   --self-contained -o publish/win    # од
 dotnet publish -c Release -r linux-x64 --self-contained -o publish/linux
 ```
 
+### Тесты
+
+```bash
+dotnet test tests/KospetMapMaker.Tests
+```
+
+Тесты проверяют ядро: формат файлов часов, R-дерево индекса, классификацию тегов, геометрию,
+изолинии и весь конвейер OSM на маленьком синтетическом `.osm.pbf` (сравнение с эталонными
+файлами). Сеть для них не нужна.
+
 ## Командная строка
 
 Для скриптов и серверов есть режим без окна:

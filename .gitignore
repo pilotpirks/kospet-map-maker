@@ -4,3 +4,5 @@ publish/
 .vs/
 .idea/
 *.user
+__pycache__/
+*.pyc
