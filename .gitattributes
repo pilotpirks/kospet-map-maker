@@ -1,0 +1,10 @@
+* text=auto
+*.sh text eol=lf
+*.ps1 text eol=crlf
+*.pbf binary
+*.mlp binary
+*.idx binary
+*.db binary
+*.png binary
+*.cmd text eol=crlf
+*.bat text eol=crlf

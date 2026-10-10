@@ -7,6 +7,8 @@
 
 Работает на **Windows и Linux**, интерфейс на русском и английском.
 
+![Окно программы](docs/screenshot.png)
+
 ---
 
 ## Зачем это нужно
@@ -62,10 +64,27 @@
 Нужен [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0).
 
 ```bash
-dotnet run -c Release                                                  # запустить
-dotnet publish -c Release -r win-x64   --self-contained -o publish/win    # один .exe
-dotnet publish -c Release -r linux-x64 --self-contained -o publish/linux
+dotnet run -c Release          # запустить из исходников
 ```
+
+Готовые файлы для Windows и Linux собираются скриптом — он прогоняет тесты и делает
+self-contained single-file сборки в `publish/release/`:
+
+```powershell
+.\build.ps1                      # Windows (PowerShell)
+.\build.ps1 -SkipTests           # без тестов
+.\build.ps1 -Runtimes win-x64    # только одна платформа
+.\build.ps1 -Release             # + тег v<версия> и релиз на GitHub (нужен gh)
+```
+
+```bash
+./build.sh                       # Linux / macOS
+./build.sh --release --version 1.1.0
+```
+
+Версия берётся из `<Version>` в `KospetMapMaker.csproj` (или `-Version` / `--version`).
+На Windows то же самое можно запустить двойным щелчком или из `cmd` через `build.cmd`
+(принимает те же ключи: `build.cmd -Release`) — он обходит запрет PowerShell на запуск скриптов.
 
 ### Тесты
 
